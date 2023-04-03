@@ -5,7 +5,7 @@ const allSections = document.querySelectorAll('.main-content');
 
 
 function PageTransitions() {
-    //Button click active class
+    //Button click active class - this function is replacing the .active-btn class with '' and adding it to the 'click'ed on button
     for (let i = 0; i < sectBtn.length; i++) {
         sectBtn[i].addEventListener('click', function() {
             let currentBtn = document.querySelectorAll('.active-btn');
@@ -13,6 +13,28 @@ function PageTransitions() {
             this.className += ' active-btn'; //this. keyword doesn't exist in arrow function.
         }) 
     }
-}
+ 
+    //Sections Active Class - targeting the 'data-id' of the clicked element and putting in variable called id
+    for (let i = 0; i < allSections.length; i++) {
+        allSections[i].addEventListener('click', function(e) {
+          const id = e.target.dataset.id;
+          if(id) {
+            //remove selected from the other btns 
+            sectBtns.forEach((btn) => {
+                btn.classList.remove('active');
+            })
+            e.target.classList.add('active');
+
+            //hide other sections
+            sections.forEach((section) => {
+                section.classList.remove('active');
+            })
+
+            const element = document.getElementById(id);
+            element.classList.add('active');
+          }
+        });
+    }
+};
 
 PageTransitions();
